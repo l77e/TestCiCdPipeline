@@ -1,0 +1,2 @@
+- name: Laminas Continuous Integration
+  uses: laminas/laminas-continuous-integration-action@v0
