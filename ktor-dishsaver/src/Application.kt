@@ -8,6 +8,8 @@ import io.ktor.http.*
 import io.ktor.html.*
 import kotlinx.html.*
 import kotlinx.css.*
+import javax.swing.text.StyleConstants
+import javax.swing.text.StyledEditorKit
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -16,7 +18,15 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 fun Application.module(testing: Boolean = false) {
     routing {
         get("/") {
-            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
+            call.respondHtml {
+                head {
+                    link(rel = LinkRel.stylesheet, type=LinkType.textCss, href = "http://yui.yahooapis.com/pure/0.6.0/pure-min.css")
+                }
+                body {
+                    h1(classes = "font-family: arial;") { +"DishSaver" }
+                    h2 { +"Reduce food waste and help the community." }
+                }
+            }
         }
 
         get("/html-dsl") {
@@ -35,7 +45,7 @@ fun Application.module(testing: Boolean = false) {
         get("/styles.css") {
             call.respondCss {
                 body {
-                    backgroundColor = Color.red
+                    backgroundColor = Color.blue
                 }
                 p {
                     fontSize = 2.em
